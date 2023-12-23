@@ -1,16 +1,25 @@
 import { useState } from 'react';
-import { StyleSheet,  View, Button, TextInput,  FlatList } from 'react-native';
+import { StyleSheet,  View,   FlatList, Button } from 'react-native';
 import GoalItem from './components/GoalItem';
 import GaolInput from './components/GoalInput';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
- 
+ const [modalIsVisible, setModalIsVisible] = useState(false);
   const [courseGoal, setCourseGoal] = useState([]);
   
+  function startAddGoalHandler (){
+    setModalIsVisible(true);
+  }
+  function endAddGoalHandler (){
+    setModalIsVisible(false);
+  }
   function  addGoalHander(enteredGoalInput){
 setCourseGoal((CurrentGoal)=> [...CurrentGoal, 
 {text : enteredGoalInput, id: Math.random().toString()}
+
 ])
+endAddGoalHandler()
   }
   function deleteHandler (id){
     setCourseGoal(currentGoalItem=>{
@@ -18,21 +27,26 @@ setCourseGoal((CurrentGoal)=> [...CurrentGoal,
     })
   }
   return (
+    <>
+    <StatusBar style="light" />
     <View style={styles.appContainer}>
-     <GaolInput onAddGoal={addGoalHander}/>
+<Button title='Add Goal item' color="#a065ec" onPress={startAddGoalHandler}/>
+    { modalIsVisible && <GaolInput
+     visible={modalIsVisible} 
+    onAddGoal={addGoalHander}
+    onCancel={endAddGoalHandler}
+    />
+   
+    }
       <View style={styles.goalsContainer}>
-        <FlatList 
+        <FlatList
         data={courseGoal} 
         renderItem={(itemData)=> {
         return  <GoalItem id={itemData.item.id} onDeleteItem={deleteHandler} text={itemData.item.text}/>
         }} />
-       
-       
-     
-        
-     
       </View>
     </View>
+    </>
   );
 }
 
