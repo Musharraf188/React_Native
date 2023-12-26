@@ -37,7 +37,7 @@ export default GaolInput;
 
 const styles = StyleSheet.create({
     inputContainer: {
-      padding:16,
+        padding:16,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

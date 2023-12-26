@@ -28,7 +28,7 @@ endAddGoalHandler()
   }
   return (
     <>
-    <StatusBar style="light" />
+    <StatusBar st  />
     <View style={styles.appContainer}>
 <Button title='Add Goal item' color="#a065ec" onPress={startAddGoalHandler}/>
     { modalIsVisible && <GaolInput
